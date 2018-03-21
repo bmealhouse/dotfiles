@@ -1,0 +1,51 @@
+{
+  /*
+	// Place your snippets for Javascript (Babel) here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	"Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	}
+*/
+
+  "console-log": {
+    "prefix": "cl",
+    "body": ["console.log('${1:message}')$0"],
+    "description": "Log a message to the console"
+  },
+  "console-log-value": {
+    "prefix": "log",
+    "body": ["console.log('${1:value}:', ${1:value})$0"],
+    "description": "Log a value to the console"
+  },
+  "console-log-json": {
+    "prefix": "json",
+    "body": [
+      "console.log('${1:value}:', JSON.stringify(${1:value}, null, 2))$0"
+    ],
+    "description": "Log a JSON value to the console"
+  },
+  "ami-unit-test": {
+    "prefix": "amitest",
+    "body": [
+      "/** @jest-environment node */",
+      "",
+      "import ${2:module} from '${1:path}'",
+      "",
+      "describe('${1:path}', () => {",
+      "  test('${1:path}: ${3:description}', () => {",
+      "    const result = ${2:module}()",
+      "    expect(result).toBe(false)",
+      "  })",
+      "})"
+    ],
+    "description": "Scaffold unit-test based on Amano McGann convensions"
+  }
+}
