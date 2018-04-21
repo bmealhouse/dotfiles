@@ -1,10 +1,24 @@
 {
   "atomKeymap.promptV3Features": true,
+  "colorize.languages": [
+    "css",
+    "sass",
+    "scss",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "postcss",
+    "sss",
+    "stylus",
+    "xml",
+    "svg",
+    "yaml"
+  ],
   // "editor.acceptSuggestionOnEnter": "off",
+  // "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
-  "editor.cursorStyle": "block",
   "editor.folding": false,
-  "editor.fontFamily": "Operator Mono, Whois, Iosevka, Hack, 'Fira Code', Menlo, Monaco",
+  "editor.fontFamily": "Whois, Iosevka, Hack, 'Fira Code', Menlo, Monaco, Inconsolata-g",
   "editor.fontLigatures": true,
   "editor.fontSize": 16,
   "editor.formatOnSave": true,
@@ -21,20 +35,83 @@
   "editor.snippetSuggestions": "top",
   "editor.tabSize": 2,
   // "editor.wordBasedSuggestions": false,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.packageManager": "yarn",
   "explorer.autoReveal": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.openEditors.visible": 0,
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+  "files.defaultLanguage": "javascriptreact",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "git.countBadge": "off",
+  "http.proxyStrictSSL": false,
+  "merge-conflict.codeLens.enabled": false, // vscode bug: remove setting
+  "merge-conflict.decorators.enabled": true, // vscode bug: reverse setting
   "prettier.bracketSpacing": false,
   "prettier.semi": false,
   "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "terminal.explorerKind": "external",
+  "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
   "terminal.integrated.fontSize": 14,
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+  "vim.cmdLineInitialColon": true,
+  "vim.handleKeys": {
+    "<C-d>": false
+  },
+  "vim.overrideCopy": false,
+  "vim.sneak": true,
+  "vim.statusBarColorControl": false,
+  "vim.statusBarColors": {
+    "normal": "#282c3d",
+    "insert": [
+      "#c3e88d",
+      "#282c3d"
+    ],
+    "visual": [
+      "#ff5874",
+      "#282c3d"
+    ],
+  },
+  "vim.useCtrlKeys": false,
   "window.zoomLevel": 0,
-  "workbench.colorTheme": "Material Palenight for Operator Mono",
-  "workbench.fontAliasing": "default",
+  "workbench.colorTheme": "Palenight Theme",
   "workbench.iconTheme": "vs-nomo-dark",
-  "xo.enable": true,
-  // "prettier.stylelintIntegration": true,
-  // "prettier.trailingComma": "all",
+  // performance
+  "css.validate": false,
+  "eslint.run": "onSave",
+  "extensions.ignoreRecommendations": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  "git.checkoutType": "local",
+  "grunt.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "jake.autoDetect": "off",
+  "less.validate": false,
+  "npm.autoDetect": "off",
+  "php.suggest.basic": false,
+  "php.validate.enable": false,
+  "scss.validate": false,
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "update.enableWindowsBackgroundUpdates": false,
+  "window.autoDetectHighContrast": false,
+  // automatically set
 }
+// todo: editor
+// todo: scm
+// todo: workbench
+// todo: files
+// todo: html
+// todo: markdown
+// todo: typescript
+// todo: integrated terminal
+// todo: git
+// todo: vim configuration
+// todo: emmet
