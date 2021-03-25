@@ -99,12 +99,18 @@ function xcode-reinstall {
   xcode-install
 }
 
-# todo: add more help docs
 function help {
   echo -e "
-  ${LIGHT_CYAN}mergem${END}     ${DIM}merge main/master${END}
-  ${LIGHT_CYAN}rebasem${END}    ${DIM}rebase main/master${END}
-  ${LIGHT_CYAN}refreshm${END}   ${DIM}prune/pull main/master${END}
+  ${LIGHT_CYAN}effit${END}             ${DIM}amend commit, rebasem, and force push (--no-verify)${END}
+  ${LIGHT_CYAN}kp [pid]${END}          ${DIM}kill process${END}
+  ${LIGHT_CYAN}mergem${END}            ${DIM}merge main/master${END}
+  ${LIGHT_CYAN}rebasem${END}           ${DIM}rebase main/master${END}
+  ${LIGHT_CYAN}refreshm${END}          ${DIM}prune/pull main/master${END}
+  ${LIGHT_CYAN}xcode-install${END}     ${DIM}install xcode dev tools${END}
+  ${LIGHT_CYAN}xcode-reinstall${END}   ${DIM}reinstall xcode dev tools${END}
+  ${LIGHT_CYAN}yolo${END}              ${DIM}amend commit and force push (--no-verify)${END}
+  ${LIGHT_CYAN}zshrc${END}             ${DIM}edit & source ~/.zshrc${END}
+  ${LIGHT_CYAN}zsource${END}           ${DIM}source ~/.zshrc${END}
 "
 }
 
