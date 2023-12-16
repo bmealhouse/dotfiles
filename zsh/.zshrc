@@ -1,10 +1,14 @@
 # ansible
-export PATH="$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:$PATH"
+export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:/opt/homebrew/bin:$PATH"
 
 # # git completion
 # zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 # fpath+=~/.zsh
 # autoload -Uz compinit && compinit
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
+export GRADLE_USER_HOME="$HOME/.gradle"
 
 # # pure
 # fpath+=$(brew --prefix)/share/zsh/site-functions
@@ -24,19 +28,19 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # ---
 
 # aliases
+alias aws="aws --profile default"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
-alias initlua='vim ~/.config/nvim/init.lua'
 alias ls='ls -FG'
 alias ll='ls -l'
 alias la='ls -la'
-alias timestamp='node -e "console.log(Date.now())"'
+alias nodet='nlx tsx --tsconfig tsconfig.base.json'
+alias ts='node -e "console.log(Date.now())"'
 alias uuid='node -e "console.log(require(\"crypto\").randomUUID())"'
 alias vim='nvim'
 alias zshrc="vim ~/.zshrc && zsource"
 alias zsource="source ~/.zshrc && source ~/.zprofile"
-alias aws="aws --profile default"
 
 # # exiftool renames
 # exiftool -d '%Y-%m-%d %H.%M.%S' -ext jpg '-FileName<${FileModifyDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal} ${ImageSize}%-c.${FileTypeExtension}' .
@@ -45,25 +49,81 @@ alias aws="aws --profile default"
 # exiftool -r -d '%Y-%m-%d  %H.%M.%S' -ext avi -ext mov -ext mp4 -ext 3gp '-FileName<${FileModifyDate}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' .
 
 # git
-git config --global pager.branch false
-git config --global alias.a add
-git config --global alias.ac 'commit --amend'
-git config --global alias.b branch
-git config --global alias.ba 'branch -a'
-git config --global alias.c checkout
-git config --global alias.cam 'commit --am'
-git config --global alias.co 'commit -m'
-git config --global alias.d 'branch -d'
-git config --global alias.D 'branch -D'
-git config --global alias.df diff
-git config --global alias.f 'fetch origin --prune'
-git config --global alias.fp 'push -f'
-git config --global alias.l log
-git config --global alias.ll 'log --oneline'
-git config --global alias.p pull
-git config --global alias.pu push
-git config --global alias.s status
-git config --global alias.sh show
+if ! git config --global --get pager.branch >/dev/null 2>&1; then
+  git config --global pager.branch false
+fi
+
+if ! git config --global --get alias.a >/dev/null 2>&1; then
+  git config --global alias.a add
+fi
+
+if ! git config --global --get alias.ac >/dev/null 2>&1; then
+  git config --global alias.ac 'commit --amend'
+fi
+
+if ! git config --global --get alias.b >/dev/null 2>&1; then
+  git config --global alias.b branch
+fi
+
+if ! git config --global --get alias.ba >/dev/null 2>&1; then
+  git config --global alias.ba 'branch -a'
+fi
+
+if ! git config --global --get alias.c >/dev/null 2>&1; then
+  git config --global alias.c checkout
+fi
+
+if ! git config --global --get alias.cam >/dev/null 2>&1; then
+  git config --global alias.cam 'commit --am'
+fi
+
+if ! git config --global --get alias.co >/dev/null 2>&1; then
+  git config --global alias.co 'commit -m'
+fi
+
+if ! git config --global --get alias.d >/dev/null 2>&1; then
+  git config --global alias.d 'branch -d'
+fi
+
+if ! git config --global --get alias.D >/dev/null 2>&1; then
+  git config --global alias.D 'branch -D'
+fi
+
+if ! git config --global --get alias.df >/dev/null 2>&1; then
+  git config --global alias.df diff
+fi
+
+if ! git config --global --get alias.f >/dev/null 2>&1; then
+  git config --global alias.f 'fetch origin --prune'
+fi
+
+if ! git config --global --get alias.fp >/dev/null 2>&1; then
+  git config --global alias.fp 'push -f'
+fi
+
+if ! git config --global --get alias.l >/dev/null 2>&1; then
+  git config --global alias.l log
+fi
+
+if ! git config --global --get alias.ll >/dev/null 2>&1; then
+  git config --global alias.ll 'log --oneline'
+fi
+
+if ! git config --global --get alias.p >/dev/null 2>&1; then
+  git config --global alias.p pull
+fi
+
+if ! git config --global --get alias.pu >/dev/null 2>&1; then
+  git config --global alias.pu push
+fi
+
+if ! git config --global --get alias.s >/dev/null 2>&1; then
+  git config --global alias.s status
+fi
+
+if ! git config --global --get alias.sh >/dev/null 2>&1; then
+  git config --global alias.sh show
+fi
 
 # funcs
 function refreshd {
@@ -77,8 +137,9 @@ function refreshm {
 }
 
 function rmbranches {
-  git fetch origin --prune | grep -v '\*' | xargs -n 1 git branch -d
+  git fetch origin --prune
   git pull
+  git branch -vv | grep ': gone]' | awk '{ print $1 }' | xargs -n 1 git branch -D
 }
 
 function mergem {
@@ -125,3 +186,50 @@ function xcode-reinstall {
   sudo rm -rf $(xcode-select -print-path)
   xcode-install
 }
+
+function dt {
+  node -e "console.log(new Date($1))"
+}
+
+function 1099ffg {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/federal-file-generation.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function 1099ila {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/il-acknowledgement.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function 1099ilt {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/il-transmission.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function 1099mdt {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/md-transmission.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function 1099sfg {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/state-file-generation.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function 1099update {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/update-status.ts "$@"
+  cd $CURRENT_DIR
+}
+
