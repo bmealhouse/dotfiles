@@ -6,6 +6,7 @@ local plugins = {
       auto_install = true,
       ensure_installed = {
         "bash",
+        "gitignore",
         "lua",
       },
     },
