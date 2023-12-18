@@ -5,6 +5,7 @@ local plugins = {
     opts = {
       auto_install = true,
       ensure_installed = {
+        "bash",
         "lua",
       },
     },
@@ -15,7 +16,9 @@ local plugins = {
     opts = {
       automatic_installation = true,
       ensure_installed = {
+        "bash-language-server",
         "lua-language-server",
+        "shfmt",
         "stylua",
       },
     },
