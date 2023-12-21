@@ -6,6 +6,7 @@ local plugins = {
       auto_install = true,
       ensure_installed = {
         "bash",
+        "html",
         "gitignore",
         "lua",
       },
@@ -18,11 +19,21 @@ local plugins = {
       automatic_installation = true,
       ensure_installed = {
         "bash-language-server",
+        "html-lsp",
         "lua-language-server",
+        "prettier",
         "shfmt",
         "stylua",
       },
     },
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end,
   },
 
   {

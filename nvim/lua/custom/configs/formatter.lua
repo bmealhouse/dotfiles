@@ -1,5 +1,6 @@
 require("conform").setup {
   formatters_by_ft = {
+    html = { "prettier" },
     lua = { "stylua" },
     sh = { "shfmt" },
   },
@@ -9,7 +10,7 @@ require("conform").setup {
   },
   formatters = {
     shfmt = {
-      prepend_args = { "-i", "2" }
-    }
-  }
+      prepend_args = { "-i", "2" },
+    },
+  },
 }
