@@ -6,6 +6,7 @@ local plugins = {
       auto_install = true,
       ensure_installed = {
         "bash",
+        "css",
         "html",
         "gitignore",
         "lua",
@@ -19,11 +20,13 @@ local plugins = {
       automatic_installation = true,
       ensure_installed = {
         "bash-language-server",
+        "css-lsp",
         "html-lsp",
         "lua-language-server",
         "prettier",
         "shfmt",
         "stylua",
+        "tailwindcss-language-server",
       },
     },
   },
