@@ -2,6 +2,8 @@ require("conform").setup {
   formatters_by_ft = {
     css = { "prettier" },
     html = { "prettier" },
+    json = { "biome" },
+    jsonc = { "biome" },
     lua = { "stylua" },
     scss = { "prettier" },
     sh = { "shfmt" },

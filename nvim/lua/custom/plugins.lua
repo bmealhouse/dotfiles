@@ -7,8 +7,10 @@ local plugins = {
       ensure_installed = {
         "bash",
         "css",
-        "html",
         "gitignore",
+        "html",
+        "json",
+        "jsonc",
         "lua",
       },
     },
@@ -20,8 +22,10 @@ local plugins = {
       automatic_installation = true,
       ensure_installed = {
         "bash-language-server",
+        "biome",
         "css-lsp",
         "html-lsp",
+        "json-lsp",
         "lua-language-server",
         "prettier",
         "shfmt",
