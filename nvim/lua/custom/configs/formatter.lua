@@ -7,6 +7,7 @@ require("conform").setup {
     lua = { "stylua" },
     scss = { "prettier" },
     sh = { "shfmt" },
+    toml = { "taplo" },
   },
   format_on_save = {
     timeout_ms = 500,
