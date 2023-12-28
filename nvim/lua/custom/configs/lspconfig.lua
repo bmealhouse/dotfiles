@@ -10,3 +10,16 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.yamlls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "root/**/*.yml",
+        ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*",
+      },
+    },
+  },
+}
