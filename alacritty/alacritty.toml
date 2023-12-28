@@ -1,0 +1,18 @@
+import = ["/Users/brent/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 14, y = 10 }
+dynamic_padding = false
+decorations = "Buttonless"
+opacity = 0.95
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Medium" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Heavy" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Medium Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Heavy Italic" }
+size = 14.0
