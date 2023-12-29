@@ -2,7 +2,8 @@ local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "cssls", "html", "jsonls", "tailwindcss", "taplo" }
+local servers =
+  { "cssls", "html", "jsonls", "prismals", "tailwindcss", "taplo" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
