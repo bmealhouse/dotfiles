@@ -5,6 +5,7 @@ require("conform").setup {
     json = { "biome" },
     jsonc = { "biome" },
     lua = { "stylua" },
+    markdown = { "prettier" },
     scss = { "prettier" },
     sh = { "shfmt" },
     toml = { "taplo" },
