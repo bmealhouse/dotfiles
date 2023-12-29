@@ -8,6 +8,7 @@ local plugins = {
         "bash",
         "css",
         "gitignore",
+        "go",
         "html",
         "javascript",
         "json",
@@ -33,6 +34,10 @@ local plugins = {
         "biome",
         "css-lsp",
         "eslint-lsp",
+        "gofumpt",
+        "goimports-reviser",
+        "golines",
+        "gopls",
         "html-lsp",
         "json-lsp",
         "lua-language-server",
@@ -76,6 +81,24 @@ local plugins = {
       require "custom.configs.lint"
     end,
   },
+
+  {
+    -- https://github.com/olexsmir/gopher.nvim
+    "olexsmir/gopher.nvim",
+    ft = "go",
+    config = function(_, opts)
+      require("gopher").setup(opts)
+      require("core.utils").load_mappings "gopher"
+    end,
+    build = function()
+      vim.cmd [[silent! GoInstallDeps]]
+    end,
+  },
+
+  -- TODO:
+  --   glepnir/lspsaga.nvim -- enhanced lsp ui
+  --   jose-elias-alvarez/typescript.nvim -- enhanced typescript
+  --   onsails/lspkind.nvim -- autocomplete icons
 }
 
 return plugins
