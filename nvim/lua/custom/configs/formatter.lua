@@ -2,6 +2,8 @@ require("conform").setup {
   formatters_by_ft = {
     css = { "prettier" },
     html = { "prettier" },
+    javascript = { "biome" },
+    javascriptreact = { "biome" },
     json = { "biome" },
     jsonc = { "biome" },
     lua = { "stylua" },
@@ -9,6 +11,8 @@ require("conform").setup {
     scss = { "prettier" },
     sh = { "shfmt" },
     toml = { "taplo" },
+    typescript = { "biome" },
+    typescriptreact = { "biome" },
     yaml = { "prettier" },
   },
   format_on_save = {
