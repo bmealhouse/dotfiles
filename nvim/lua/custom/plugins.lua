@@ -32,6 +32,7 @@ local plugins = {
         "bash-language-server",
         "biome",
         "css-lsp",
+        "eslint-lsp",
         "html-lsp",
         "json-lsp",
         "lua-language-server",
@@ -65,6 +66,14 @@ local plugins = {
     end,
     config = function()
       require "custom.configs.formatter"
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      require "custom.configs.lint"
     end,
   },
 }
