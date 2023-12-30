@@ -95,6 +95,15 @@ local plugins = {
     end,
   },
 
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {}
+    end,
+  },
+
   -- TODO:
   --   glepnir/lspsaga.nvim -- enhanced lsp ui
   --   jose-elias-alvarez/typescript.nvim -- enhanced typescript
