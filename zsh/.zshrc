@@ -1,3 +1,6 @@
+# starship
+eval "$(starship init zsh)"
+
 # ansible
 export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:/opt/homebrew/bin:$PATH"
 
