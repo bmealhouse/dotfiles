@@ -6,20 +6,26 @@ local plugins = {
       auto_install = true,
       ensure_installed = {
         "bash",
+        "c",
         "css",
+        "diff",
         "gitignore",
         "go",
         "html",
         "javascript",
+        "jsdoc",
         "json",
         "jsonc",
         "lua",
         "markdown",
         "markdown_inline",
         "prisma",
+        "query",
+        "regex",
         "toml",
         "tsx",
         "typescript",
+        "vim",
         "yaml",
       },
     },
@@ -108,11 +114,6 @@ local plugins = {
     "github/copilot.vim",
     event = "VeryLazy",
   },
-
-  -- TODO:
-  --   glepnir/lspsaga.nvim -- enhanced lsp ui
-  --   jose-elias-alvarez/typescript.nvim -- enhanced typescript
-  --   onsails/lspkind.nvim -- autocomplete icons
 }
 
 return plugins
