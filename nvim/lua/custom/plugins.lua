@@ -104,6 +104,11 @@ local plugins = {
     end,
   },
 
+  {
+    "github/copilot.vim",
+    event = "VeryLazy",
+  },
+
   -- TODO:
   --   glepnir/lspsaga.nvim -- enhanced lsp ui
   --   jose-elias-alvarez/typescript.nvim -- enhanced typescript
