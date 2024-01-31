@@ -215,6 +215,13 @@ function 1099ilt {
   cd $CURRENT_DIR
 }
 
+function 1099lpm {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound2/tools/scripts
+  npx tsx src/v4-1099-filing/lob-paper-mailing.ts "$@"
+  cd $CURRENT_DIR
+}
+
 function 1099mdt {
   CURRENT_DIR=$PWD
   cd ~/dev/abound2/tools/scripts
