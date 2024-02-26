@@ -4,10 +4,10 @@ eval "$(starship init zsh)"
 # ansible
 export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:/opt/homebrew/bin:$PATH"
 
-# # git completion
-# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-# fpath+=~/.zsh
-# autoload -Uz compinit && compinit
+# git completion
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath+=~/.zsh
+autoload -Uz compinit && compinit
 
 # java
 export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
