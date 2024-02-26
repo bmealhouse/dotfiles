@@ -13,20 +13,15 @@ autoload -Uz compinit && compinit
 export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
 export GRADLE_USER_HOME="$HOME/.gradle"
 
-# # pure
-# fpath+=$(brew --prefix)/share/zsh/site-functions
-# autoload -U promptinit; promptinit
-# prompt pure
-
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# # zsh-autosuggestions
-# source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# # zsh-syntax-highlighting
-# source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-syntax-highlighting
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ---
 
@@ -243,3 +238,6 @@ function 1099update {
   cd $CURRENT_DIR
 }
 
+
+# Created by `pipx` on 2024-02-26 21:01:27
+export PATH="$PATH:/Users/brent/.local/bin"
