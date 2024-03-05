@@ -1,4 +1,21 @@
-local M = {}
+M = {}
+
+M.gitsigns = {
+  n = {
+    ["<leader>sb"] = {
+      function()
+        require("gitsigns").stage_buffer()
+      end,
+      "Stage buffer",
+    },
+    ["<leader>sh"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      "Stage hunk",
+    },
+  },
+}
 
 M.gopher = {
   plugin = true,
