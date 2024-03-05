@@ -33,7 +33,9 @@ alias grep='grep --color=auto'
 alias ls='ls -FG'
 alias ll='ls -l'
 alias la='ls -la'
+alias macicons='open /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
 alias nodet='nlx tsx --tsconfig tsconfig.base.json'
+alias phpserve='php -S localhost:9000'
 alias ts='node -e "console.log(Date.now())"'
 alias uuid='node -e "console.log(require(\"crypto\").randomUUID())"'
 alias vim='nvim'
@@ -124,38 +126,10 @@ if ! git config --global --get alias.sh >/dev/null 2>&1; then
 fi
 
 # funcs
-function refreshd {
-  git checkout develop
-  git pull
-}
-
-function refreshm {
-  git branch | grep -E '(main|master)' | xargs -n 1 git checkout
-  git pull
-}
-
 function rmbranches {
   git fetch origin --prune
   git pull
   git branch -vv | grep ': gone]' | awk '{ print $1 }' | xargs -n 1 git branch -D
-}
-
-function mergem {
-  refreshm
-  git checkout -
-  git branch | grep -E '(main|master)' | xargs -n 1 git merge
-}
-
-function rebased {
-  refreshd
-  git checkout -
-  git rebase develop
-}
-
-function rebasem {
-  refreshm
-  git checkout -
-  git branch | grep -E '(main|master)' | xargs -n 1 git rebase
 }
 
 function yolo {
