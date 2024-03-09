@@ -159,6 +159,10 @@ function xcode-reinstall {
   xcode-install
 }
 
+function decode {
+  node -e "console.log(decodeURIComponent('$1'))"
+}
+
 function dt {
   node -e "console.log(new Date($1))"
 }
