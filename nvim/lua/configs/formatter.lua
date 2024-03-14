@@ -1,4 +1,4 @@
-require("conform").setup {
+local options = {
   formatters_by_ft = {
     css = { "prettier" },
     go = { "gofumpt", "goimports-reviser", "golines" },
@@ -26,3 +26,5 @@ require("conform").setup {
     },
   },
 }
+
+require("conform").setup(options)

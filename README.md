@@ -18,8 +18,8 @@ ln -s ~/dev/dotfiles/zsh/.zshrc .zshrc
 
 ```sh
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-cd ~/.config/nvim/lua
-ln -s ~/dev/dotfiles/nvim/lua/custom custom
+cd ~/.config
+ln -s ~/dev/dotfiles/nvim nvim
 ```
 
 ### Research

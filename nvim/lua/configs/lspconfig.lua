@@ -1,5 +1,8 @@
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local configs = require "nvchad.configs.lspconfig"
+
+local on_init = configs.on_init
+local on_attach = configs.on_attach
+local capabilities = configs.capabilitie
 
 local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
@@ -8,12 +11,14 @@ local servers =
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
+    on_init = on_init,
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
 
 lspconfig.gopls.setup {
+  on_init = on_init,
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "gopls" },
@@ -43,6 +48,7 @@ local function organize_imports()
 end
 
 lspconfig.tsserver.setup {
+  on_init = on_init,
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
@@ -60,6 +66,7 @@ lspconfig.tsserver.setup {
 }
 
 lspconfig.yamlls.setup {
+  on_init = on_init,
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {

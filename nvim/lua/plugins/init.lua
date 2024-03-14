@@ -1,31 +1,39 @@
-local plugins = {
+return {
 
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       auto_install = true,
       ensure_installed = {
-        "bash",
+        -- defaults
+        "lua",
+        "vim",
+        "vimdoc",
+
+        -- low-level
         "c",
-        "css",
-        "diff",
-        "gitignore",
         "go",
+
+        -- web development
+        "css",
         "html",
         "javascript",
         "jsdoc",
         "json",
         "jsonc",
-        "lua",
+        "prisma",
+        "tsx",
+        "typescript",
+
+        -- other
+        "bash",
+        "diff",
+        "gitignore",
         "markdown",
         "markdown_inline",
-        "prisma",
         "query",
         "regex",
         "toml",
-        "tsx",
-        "typescript",
-        "vim",
         "yaml",
       },
     },
@@ -36,25 +44,32 @@ local plugins = {
     opts = {
       automatic_installation = true,
       ensure_installed = {
-        "bash-language-server",
-        "biome",
-        "css-lsp",
-        "eslint-lsp",
+        -- default
+        "lua-language-server",
+        "stylua",
+
+        -- low-level
         "gofumpt",
         "goimports-reviser",
         "golines",
         "gopls",
+
+        -- web development
+        "biome",
+        "css-lsp",
+        "eslint-lsp",
         "html-lsp",
         "json-lsp",
-        "lua-language-server",
-        "marksman",
         "prettier",
         "prisma-language-server",
-        "shfmt",
-        "stylua",
         "tailwindcss-language-server",
-        "taplo",
         "typescript-language-server",
+
+        -- other
+        "bash-language-server",
+        "marksman",
+        "shfmt",
+        "taplo",
         "yaml-language-server",
       },
     },
@@ -63,8 +78,8 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require("nvchad.configs.lspconfig").defaults()
+      require "configs.lspconfig"
     end,
   },
 
@@ -76,7 +91,7 @@ local plugins = {
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
     config = function()
-      require "custom.configs.formatter"
+      require "configs.formatter"
     end,
   },
 
@@ -84,7 +99,7 @@ local plugins = {
     "mfussenegger/nvim-lint",
     event = "VeryLazy",
     config = function()
-      require "custom.configs.lint"
+      require "configs.lint"
     end,
   },
 
@@ -114,6 +129,11 @@ local plugins = {
     "github/copilot.vim",
     event = "VeryLazy",
   },
-}
 
-return plugins
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      git = { enable = true },
+    },
+  },
+}
