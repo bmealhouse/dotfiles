@@ -10,8 +10,8 @@ fpath+=~/.zsh
 autoload -Uz compinit && compinit
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
-export GRADLE_USER_HOME="$HOME/.gradle"
+# export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
+# export GRADLE_USER_HOME="$HOME/.gradle"
 
 # volta
 export VOLTA_HOME="$HOME/.volta"
@@ -215,7 +215,6 @@ function 1099update {
   npx tsx src/v4-1099-filing/update-status.ts "$@"
   cd $CURRENT_DIR
 }
-
 
 # Created by `pipx` on 2024-02-26 21:01:27
 export PATH="$PATH:/Users/brent/.local/bin"
