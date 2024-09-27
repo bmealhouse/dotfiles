@@ -1,6 +1,9 @@
 # starship
 eval "$(starship init bash)"
 
+# ansible
+export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:$PATH"
+
 # git completion
 source ~/.bash/.git-completion.bash
 
@@ -14,7 +17,7 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # aliases
 alias aws="aws --profile default"
 alias bashrc="vim ~/.bashrc && bsource"
-alias bsource="source ~/.bashrc && source ~/.profile"
+alias bsource="source ~/.profile && source ~/.bashrc"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
