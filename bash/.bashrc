@@ -17,7 +17,7 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # aliases
 alias aws="aws --profile default"
 alias bashrc="vim ~/.bashrc && bsource"
-alias bsource="source ~/.profile && source ~/.bashrc"
+alias bsource="source ~/.bash_profile && source ~/.bashrc"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'

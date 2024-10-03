@@ -1,4 +1,10 @@
-import = ["/Users/brent/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+import = [
+  "~/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+  # "~/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
+  # "~/.config/alacritty/catppuccin/catppuccin-frappe.toml"
+  # "~/.config/alacritty/catppuccin/catppuccin-latte.toml"
+]
+
 live_config_reload = true
 
 [env]
@@ -8,7 +14,8 @@ TERM = "xterm-256color"
 padding = { x = 14, y = 10 }
 dynamic_padding = false
 decorations = "Buttonless"
-opacity = 0.95
+opacity = 0.85
+option_as_alt = "Both"
 
 [font]
 normal = { family = "JetBrainsMono Nerd Font", style = "Medium" }
@@ -16,3 +23,7 @@ bold = { family = "JetBrainsMono Nerd Font", style = "Heavy" }
 italic = { family = "JetBrainsMono Nerd Font", style = "Medium Italic" }
 bold_italic = { family = "JetBrainsMono Nerd Font", style = "Heavy Italic" }
 size = 14.0
+
+[shell]
+program = "/opt/homebrew/bin/bash"
+args = ["--login"]
