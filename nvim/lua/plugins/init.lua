@@ -1,108 +1,81 @@
 return {
 
+  -- nvim-treesitter is a simple and easy way to use the tree-sitter interface
+  -- in Neovim and to provide some basic highlighting functionality based on it.
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       auto_install = true,
       ensure_installed = {
-        -- defaults
+        "bash",
+        "c",
+        "css",
+        "diff",
+        "gitignore",
+        "go",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        "jsonc",
         "lua",
+        "markdown",
+        "markdown_inline",
+        "query",
+        "regex",
+        "toml",
+        "tsx",
+        "typescript",
         "vim",
         "vimdoc",
+        "yaml",
 
-        -- low-level
-        -- "c",
-        -- "go",
-
-        -- web development
-        -- "css",
-        -- "html",
-        -- "javascript",
-        -- "jsdoc",
-        -- "json",
-        -- "jsonc",
-        -- "prisma",
-        -- "tsx",
-        -- "typescript",
-
-        -- other
-        -- "bash",
-        -- "diff",
-        -- "gitignore",
-        -- "markdown",
-        -- "markdown_inline",
-        -- "query",
-        -- "regex",
-        -- "toml",
-        -- "yaml",
+        -- work-specific
+        "prisma",
       },
     },
   },
 
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      automatic_installation = true,
-      ensure_installed = {
-        -- default
-        "lua-language-server",
-        "stylua",
-
-        -- low-level
-        -- "gofumpt",
-        -- "goimports-reviser",
-        -- "golines",
-        -- "gopls",
-
-        -- web development
-        -- "biome",
-        -- "css-lsp",
-        -- "eslint-lsp",
-        -- "html-lsp",
-        -- "json-lsp",
-        -- "prettier",
-        -- "prisma-language-server",
-        -- "tailwindcss-language-server",
-        -- "typescript-language-server",
-
-        -- other
-        -- "bash-language-server",
-        -- "marksman",
-        -- "shfmt",
-        -- "taplo",
-        -- "yaml-language-server",
-      },
-    },
-  },
-
+  -- nvim-lspconfig is a "data only" repo, providing basic, default Nvim LSP
+  -- client configurations for various LSP servers.
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
-      -- require "configs.lspconfig"
+      require "configs.lspconfig"
     end,
   },
 
-  { -- Lightweight yet powerful formatter plugin for Neovim
+  -- Lightweight yet powerful formatter plugin for Neovim.
+  {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
+    cmd = "ConformInfo",
+    event = "BufWritePre",
+    opts = require "configs.conform",
+    -- init = function()
+    --   vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
+    -- end,
+  },
+
+  -- An asynchronous linter plugin for Neovim complementary to the built-in
+  -- Language Server Protocol support.
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
     config = function()
-      require "configs.formatter"
+      require "configs.lint"
     end,
   },
 
-  { -- Neovim setup for init.lua and plugin development with full signature
-    -- help, docs and completion for the nvim lua API
-    "folke/neodev.nvim",
-    opts = {},
+  -- lazydev.nvim is a plugin that properly configures LuaLS for editing your
+  -- Neovim config by lazily updating your workspace libraries.
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
   },
 
-  { -- Library of 35+ independent Lua modules improving overall Neovim
-    -- experience with minimal effort
+  -- Library of 35+ independent Lua modules improving overall Neovim
+  -- experience with minimal effort.
+  {
     "echasnovski/mini.nvim",
     config = function()
       -- Better Around/Inside textobjects
@@ -122,36 +95,17 @@ return {
     end,
   },
 
-  --   {
-  --     "mfussenegger/nvim-lint",
-  --     event = "VeryLazy",
-  --     config = function()
-  --       require "configs.lint"
-  --     end,
-  --   },
-  --
-  --   {
-  --     -- https://github.com/olexsmir/gopher.nvim
-  --     "olexsmir/gopher.nvim",
-  --     ft = "go",
-  --     config = function(_, opts)
-  --       require("gopher").setup(opts)
-  --       require("core.utils").load_mappings "gopher"
-  --     end,
-  --     build = function()
-  --       vim.cmd [[silent! GoInstallDeps]]
-  --     end,
-  --   },
-  --
-  --   {
-  --     "github/copilot.vim",
-  --     event = "VeryLazy",
-  --   },
-  --
-  --   {
-  --     "nvim-tree/nvim-tree.lua",
-  --     opts = {
-  --       git = { enable = true },
-  --     },
-  --   },
+  -- Minimalistic plugin for Go development in Neovim written in Lua.
+  -- It's NOT an LSP tool, the main goal of this plugin is to add go tooling support in Neovim.
+  {
+    "olexsmir/gopher.nvim",
+    ft = "go",
+    config = function(_, opts)
+      require("gopher").setup(opts)
+      require("core.utils").load_mappings "gopher"
+    end,
+    build = function()
+      vim.cmd [[silent! GoInstallDeps]]
+    end,
+  },
 }
