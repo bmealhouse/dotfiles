@@ -102,7 +102,9 @@ return {
     ft = "go",
     config = function(_, opts)
       require("gopher").setup(opts)
-      require("core.utils").load_mappings "gopher"
+      -- FIXME: core.utils was removed from the NvChad v2.5. Do I need to
+      -- rewrite this to enable these mappings for go only?
+      -- require("core.utils").load_mappings "gopher"
     end,
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
