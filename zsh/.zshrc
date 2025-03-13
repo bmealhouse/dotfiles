@@ -2,16 +2,15 @@
 eval "$(starship init zsh)"
 
 # ansible
-export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:/opt/homebrew/bin:$PATH"
+export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:$PATH"
 
 # git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath+=~/.zsh
 autoload -Uz compinit && compinit
 
-# java
-# export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
-# export GRADLE_USER_HOME="$HOME/.gradle"
+# pipx
+export PATH="$PATH:/Users/$USER/.local/bin"
 
 # volta
 export VOLTA_HOME="$HOME/.volta"
@@ -23,10 +22,11 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# ---
-
 # aliases
-alias aws="aws --profile default"
+# alias aws="aws --profile default"
+alias bashrc="vim ~/.bashrc && bsource"
+alias bsource="source ~/.bash_profile && source ~/.bashrc"
+alias code='code 2> /dev/null || /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -166,55 +166,58 @@ function decode {
 function dt {
   node -e "console.log(new Date($1))"
 }
+function 1099ff {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound/tools/scripts
+  npx tsx src/v4-1099-filing/add-force-filed-flag.ts "$@"
+  cd $CURRENT_DIR
+}
 
 function 1099ffg {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/federal-file-generation.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099ila {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/il-acknowledgement.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099ilt {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/il-transmission.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099lpm {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/lob-paper-mailing.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099mdt {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/md-transmission.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099sfg {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/state-file-generation.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099update {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/update-status.ts "$@"
   cd $CURRENT_DIR
 }
-
-# Created by `pipx` on 2024-02-26 21:01:27
-export PATH="$PATH:/Users/brent/.local/bin"

@@ -1,10 +1,10 @@
 # dotfiles
 
-## Alacritty
+## bash
 
 ```sh
-cd ~/.config
-ln -s ~/dev/dotfiles/alacritty alacritty
+cd ~
+ln -s ~/dev/dotfiles/bash/.bashrc .bashrc
 ```
 
 ## zsh

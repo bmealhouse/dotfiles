@@ -8,16 +8,17 @@ export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bi
 source ~/.bash/.git-completion.bash
 
 # pipx
-export PATH="$PATH:/Users/brent/.local/bin"
+export PATH="$PATH:/Users/$USER/.local/bin"
 
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # aliases
-alias aws="aws --profile default"
+# alias aws="aws --profile default"
 alias bashrc="vim ~/.bashrc && bsource"
 alias bsource="source ~/.bash_profile && source ~/.bashrc"
+alias code='code 2> /dev/null || /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -30,6 +31,8 @@ alias phpserve='php -S localhost:9000'
 alias ts='node -e "console.log(Date.now())"'
 alias uuid='node -e "console.log(require(\"crypto\").randomUUID())"'
 alias vim='nvim'
+alias zshrc="vim ~/.zshrc && zsource"
+alias zsource="source ~/.zshrc && source ~/.zprofile"
 
 # # exiftool renames
 # exiftool -d '%Y-%m-%d %H.%M.%S' -ext jpg '-FileName<${FileModifyDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal} ${ImageSize}%-c.${FileTypeExtension}' .
@@ -156,51 +159,58 @@ function dt {
   node -e "console.log(new Date($1))"
 }
 
+function 1099ff {
+  CURRENT_DIR=$PWD
+  cd ~/dev/abound/tools/scripts
+  npx tsx src/v4-1099-filing/add-force-filed-flag.ts "$@"
+  cd $CURRENT_DIR
+}
+
 function 1099ffg {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/federal-file-generation.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099ila {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/il-acknowledgement.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099ilt {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/il-transmission.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099lpm {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/lob-paper-mailing.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099mdt {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/md-transmission.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099sfg {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/state-file-generation.ts "$@"
   cd $CURRENT_DIR
 }
 
 function 1099update {
   CURRENT_DIR=$PWD
-  cd ~/dev/abound2/tools/scripts
+  cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/update-status.ts "$@"
   cd $CURRENT_DIR
 }
