@@ -10,6 +10,9 @@ source ~/.bash/.git-completion.bash
 # pipx
 export PATH="$PATH:/Users/$USER/.local/bin"
 
+# tfswitch
+export PATH="$PATH:/Users/$USER/bin"
+
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -28,6 +31,12 @@ alias la='ls -la'
 alias macicons='open /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
 alias nodet='nlx tsx --tsconfig tsconfig.base.json'
 alias phpserve='php -S localhost:9000'
+alias ta='terraform apply'
+alias td='terraform destroy'
+alias tfu='terraform force-unlock'
+alias ti='terraform init'
+alias tp='terraform plan'
+alias tr='rm .terraform.lock.hcl && rm -rf ./.terraform'
 alias ts='node -e "console.log(Date.now())"'
 alias uuid='node -e "console.log(require(\"crypto\").randomUUID())"'
 alias vim='nvim'
@@ -212,5 +221,21 @@ function 1099update {
   CURRENT_DIR=$PWD
   cd ~/dev/abound/tools/scripts
   npx tsx src/v4-1099-filing/update-status.ts "$@"
+  cd $CURRENT_DIR
+}
+
+function awsenv {
+  bcli get-configured-aws-creds -P "$@" &>/dev/null # not sure why this command is currently throwing an error
+  export AWS_DEFAULT_REGION=us-west-2
+  export AWS_PROFILE="$@"
+}
+
+function ri {
+  CURRENT_DIR=$PWD
+  cd ~/dev/infra /rocketship-cli
+  git checkout main
+  git fetch origin --prune
+  git pull
+  go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
   cd $CURRENT_DIR
 }
