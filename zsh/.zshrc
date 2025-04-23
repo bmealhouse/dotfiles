@@ -247,3 +247,18 @@ function ri {
   go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
   cd $CURRENT_DIR
 }
+
+function rib {
+  CURRENT_DIR=$PWD
+  cd ~/dev/infra/rocketship-cli
+  go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
+  cd $CURRENT_DIR
+}
+
+function rip {
+  CURRENT_DIR=$PWD
+  cd ~/dev/infra/rocketship-cli
+  GOOS=linux GOARCH=amd64 go build -C src/cmd -o ../../rcli && mv rcli "../../$@"
+  cd $CURRENT_DIR
+}
+
