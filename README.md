@@ -1,25 +1,26 @@
 # dotfiles
 
-## bash
+## Install
+
+Requires [GNU Stow](https://www.gnu.org/software/stow/).
 
 ```sh
-cd ~
-ln -s ~/dev/dotfiles/bash/.bashrc .bashrc
+git clone <repo-url> ~/dotfiles
+cd ~/dotfiles
+./install.sh
 ```
 
-## zsh
-
-```sh
-cd ~
-ln -s ~/dev/dotfiles/zsh/.zshrc .zshrc
-```
+`install.sh` symlinks all packages into `$HOME` via `stow .`, then runs one-time
+provisioning steps (e.g. global git aliases via `scripts/provision-git-aliases.sh`).
 
 ## Neovim
+
+`nvim` is excluded from stow (see `.stow-local-ignore`) since it depends on NvChad:
 
 ```sh
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 cd ~/.config
-ln -s ~/dev/dotfiles/nvim nvim
+ln -s ~/dotfiles/nvim nvim
 ```
 
 ### Research

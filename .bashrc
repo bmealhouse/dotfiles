@@ -1,27 +1,35 @@
+# path
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:$PATH" # ansible
+export PATH="$PATH:/Users/$USER/.local/bin" # pipx
+export PATH="$PATH:/Users/$USER/bin" # tfswitch
+
+# other exports
+export LIBRARY_PATH="/opt/homebrew/lib"
+export CPATH="/opt/homebrew/include"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+# rust
+. "$HOME/.cargo/env"
+
 # starship
 eval "$(starship init bash)"
 
-# ansible
-export PATH="$HOME/Library/Python/$(python3 -V | perl -pe '($_)=/(\d\.\d*)/')/bin:$PATH"
-
 # git completion
-source ~/.bash/.git-completion.bash
-
-# pipx
-export PATH="$PATH:/Users/$USER/.local/bin"
-
-# tfswitch
-export PATH="$PATH:/Users/$USER/bin"
+# source ~/.bash/.git-completion.bash
 
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # aliases
-# alias aws="aws --profile default"
+alias aws-auth='bcli get-configured-aws-creds --instance techops'
 alias bashrc="vim ~/.bashrc && bsource"
 alias bsource="source ~/.bash_profile && source ~/.bashrc"
+alias cat='bat'
 alias code='code 2> /dev/null || /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+alias corepack_enable='corepack enable --install-directory ~/.volta/bin'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -29,126 +37,106 @@ alias ls='ls -FG'
 alias ll='ls -l'
 alias la='ls -la'
 alias macicons='open /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources'
-alias nodet='nlx tsx --tsconfig tsconfig.base.json'
+alias nodet='nlx tsx --tsconfig packages/typescript-config/base.json'
 alias phpserve='php -S localhost:9000'
-alias ta='terraform apply'
-alias td='terraform destroy'
-alias tfu='terraform force-unlock'
-alias ti='terraform init'
-alias tp='terraform plan'
-alias tr='rm .terraform.lock.hcl && rm -rf ./.terraform'
 alias ts='node -e "console.log(Date.now())"'
 alias uuid='node -e "console.log(require(\"crypto\").randomUUID())"'
 alias vim='nvim'
-alias zshrc="vim ~/.zshrc && zsource"
+alias weather='curl wttr.in/hill%20city,%20mn'
+alias zshrc="$EDITOR ~/.zshrc && zsource"
 alias zsource="source ~/.zshrc && source ~/.zprofile"
 
-# # exiftool renames
-# exiftool -d '%Y-%m-%d %H.%M.%S' -ext jpg '-FileName<${FileModifyDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate} ${ImageSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal} ${ImageSize}%-c.${FileTypeExtension}' .
-# exiftool -d '%Y-%m-%d %H.%M.%S' -ext mov '-FileName<${FileModifyDate} ${ImageSize} ${Duration}.${FileTypeExtension}' '-FileName<${CreateDate} ${ImageSize} ${Duration}.${FileTypeExtension}' '-FileName<${DateTimeOriginal} ${ImageSize} ${Duration}.${FileTypeExtension}' .
-# exiftool -r -d '%Y-%m-%d  %H.%M.%S' -ext jpg -ext png -ext bmp '-FileName<${FileModifyDate}  ${ImageSize}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate}  ${ImageSize}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal}  ${ImageSize}  ${FileSize}%-c.${FileTypeExtension}' .
-# exiftool -r -d '%Y-%m-%d  %H.%M.%S' -ext avi -ext mov -ext mp4 -ext 3gp '-FileName<${FileModifyDate}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${CreateDate}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' '-FileName<${DateTimeOriginal}  ${ImageSize}  ${Duration}  ${FileSize}%-c.${FileTypeExtension}' .
+# suffix aliases
+alias -s md="bat"
+alias -s mov="open"
+alias -s png="open"
+alias -s mp4="open"
+alias -s go="$EDITOR"
+alias -s js="$EDITOR"
+alias -s ts="$EDITOR"
+alias -s yaml="bat -l yaml"
+alias -s yml="bat -l yaml"
+alias -s json="bat"
 
-# git
-if ! git config --global --get pager.branch >/dev/null 2>&1; then
-  git config --global pager.branch false
-fi
+# global aliases
+alias -g JQ='| jq'
+alias -g C='| pbcopy'
 
-if ! git config --global --get alias.a >/dev/null 2>&1; then
-  git config --global alias.a add
-fi
+#
+# ------- functions -------
+#
 
-if ! git config --global --get alias.ac >/dev/null 2>&1; then
-  git config --global alias.ac 'commit --amend'
-fi
+# run a command in a different directory without leaving the shell's cwd changed
+function run-in-subshell {
+  local dir=$1
+  shift
+  (cd "$dir" && "$@")
+}
 
-if ! git config --global --get alias.b >/dev/null 2>&1; then
-  git config --global alias.b branch
-fi
+function decode {
+  node -e "console.log(decodeURIComponent('$1'))"
+}
 
-if ! git config --global --get alias.ba >/dev/null 2>&1; then
-  git config --global alias.ba 'branch -a'
-fi
+# datetime
+function dt {
+  node -e "console.log(new Date($1))"
+}
 
-if ! git config --global --get alias.c >/dev/null 2>&1; then
-  git config --global alias.c checkout
-fi
+function fix-ssh {
+  ssh-add -l
+  ssh-add ~/.ssh/gitlab_bill_ed25519
+  ssh -T git@git.hq.bill.com
+}
 
-if ! git config --global --get alias.cam >/dev/null 2>&1; then
-  git config --global alias.cam 'commit --am'
-fi
+function force-delete-secret {
+  aws secretsmanager delete-secret --secret-id "$@" --force-delete-without-recovery --region us-west-2
+}
 
-if ! git config --global --get alias.co >/dev/null 2>&1; then
-  git config --global alias.co 'commit -m'
-fi
+# kill process
+function kp {
+  echo "killing pid: $(lsof -ti:$1)"
+  lsof -ti:$1 | xargs kill
+}
 
-if ! git config --global --get alias.d >/dev/null 2>&1; then
-  git config --global alias.d 'branch -d'
-fi
+function reflect-update {
+  run-in-subshell ~/dev/reflect-open bash -c '
+    git fetch upstream
+    git checkout master
+    git merge upstream/master
+    pnpm install
+    pnpm tauri build
+  ' _ "$@"
+}
 
-if ! git config --global --get alias.D >/dev/null 2>&1; then
-  git config --global alias.D 'branch -D'
-fi
-
-if ! git config --global --get alias.df >/dev/null 2>&1; then
-  git config --global alias.df diff
-fi
-
-if ! git config --global --get alias.f >/dev/null 2>&1; then
-  git config --global alias.f 'fetch origin --prune'
-fi
-
-if ! git config --global --get alias.fp >/dev/null 2>&1; then
-  git config --global alias.fp 'push -f'
-fi
-
-if ! git config --global --get alias.l >/dev/null 2>&1; then
-  git config --global alias.l log
-fi
-
-if ! git config --global --get alias.ll >/dev/null 2>&1; then
-  git config --global alias.ll 'log --oneline'
-fi
-
-if ! git config --global --get alias.p >/dev/null 2>&1; then
-  git config --global alias.p pull
-fi
-
-if ! git config --global --get alias.pu >/dev/null 2>&1; then
-  git config --global alias.pu push
-fi
-
-if ! git config --global --get alias.s >/dev/null 2>&1; then
-  git config --global alias.s status
-fi
-
-if ! git config --global --get alias.sh >/dev/null 2>&1; then
-  git config --global alias.sh show
-fi
-
-# funcs
 function rmbranches {
   git fetch origin --prune
   git pull
   git branch -vv | grep ': gone]' | awk '{ print $1 }' | xargs -n 1 git branch -D
 }
 
-function yolo {
-  git add .
-  git commit --amend --no-verify
-  git push --force --no-verify
-}
+# remove node_modules
+function rnm {
+  echo "\n🗑️  removing node_modules recursively…"
+  rm -rf ./**/node_modules
 
-function effit {
-  git add .
-  git commit --amend --no-verify
-  rebasem
-  git push --force --no-verify
-}
+  echo "\n🗑️  removing lock file(s)…"
+  rm package-lock.json yarn.lock
 
-function kp {
-  echo "killing pid: $(lsof -ti:$1)"
-  lsof -ti:$1 | xargs kill
+  echo "\n📦 installing dependencies…"
+  ni
+
+  # taxservice monorepo has a nested filing-dashboard package with its own lockfile
+  if [[ "$PWD" == *taxservice* ]]; then
+    echo "\n📦 detected taxservice monorepo, installing filing-dashboard dependencies…"
+    (
+      cd filing-dashboard
+      rm package-lock.json
+      npm install
+    )
+
+    echo "\n🍰 detected taxservice monorepo, updating lambda layers…"
+    nr layers:update
+  fi
 }
 
 function xcode-install {
@@ -160,82 +148,75 @@ function xcode-reinstall {
   xcode-install
 }
 
-function decode {
-  node -e "console.log(decodeURIComponent('$1'))"
+#
+# ------- ets reports -------
+#
+
+function billing-direct {
+  run-in-subshell ~/dev/taxservice-scripts bash -c '
+    git pull
+    npm run script -- src/reports/billing-direct-state-1099-filing-event-report.ts "$@"
+  ' _ "$@"
 }
 
-function dt {
-  node -e "console.log(new Date($1))"
+function billing-federal {
+  run-in-subshell ~/dev/taxservice-scripts bash -c '
+    git pull
+    npm run script -- src/reports/billing-federal-1099-filing-event-report.ts "$@"
+  ' _ "$@"
 }
 
-function 1099ff {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/add-force-filed-flag.ts "$@"
-  cd $CURRENT_DIR
+function billing-mailing {
+  run-in-subshell ~/dev/taxservice-scripts bash -c '
+    git pull
+    npm run script -- src/reports/billing-document-mailing-event-report.ts "$@"
+  ' _ "$@"
 }
 
-function 1099ffg {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/federal-file-generation.ts "$@"
-  cd $CURRENT_DIR
+function dashboard {
+  run-in-subshell ~/dev/taxservice-scripts bash -c '
+    git pull
+    npm run script -- src/reports/ets-dashboard.ts "$@"
+  ' _ "$@"
 }
 
-function 1099ila {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/il-acknowledgement.ts "$@"
-  cd $CURRENT_DIR
+function stats {
+  run-in-subshell ~/dev/taxservice-scripts bash -c '
+    git pull
+    npm run script -- src/reports/ets-stats.ts "$@"
+  ' _ "$@"
 }
 
-function 1099ilt {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/il-transmission.ts "$@"
-  cd $CURRENT_DIR
-}
-
-function 1099lpm {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/lob-paper-mailing.ts "$@"
-  cd $CURRENT_DIR
-}
-
-function 1099mdt {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/md-transmission.ts "$@"
-  cd $CURRENT_DIR
-}
-
-function 1099sfg {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/state-file-generation.ts "$@"
-  cd $CURRENT_DIR
-}
-
-function 1099update {
-  CURRENT_DIR=$PWD
-  cd ~/dev/abound/tools/scripts
-  npx tsx src/v4-1099-filing/update-status.ts "$@"
-  cd $CURRENT_DIR
-}
-
-function awsenv {
-  bcli get-configured-aws-creds -P "$@" &>/dev/null # not sure why this command is currently throwing an error
-  export AWS_DEFAULT_REGION=us-west-2
-  export AWS_PROFILE="$@"
-}
+#
+# ------- rocketship -------
+#
 
 function ri {
-  CURRENT_DIR=$PWD
-  cd ~/dev/infra /rocketship-cli
-  git checkout main
-  git fetch origin --prune
-  git pull
-  go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
-  cd $CURRENT_DIR
+  run-in-subshell ~/dev/infra/rocketship-cli bash -c '
+    git checkout main
+    git fetch origin --prune
+    git pull
+    go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
+  '
 }
+
+function rib {
+  run-in-subshell ~/dev/infra/rocketship-cli bash -c '
+    go build -C src/cmd -o ../../rcli && sudo mv rcli /usr/local/bin/
+  '
+}
+
+function rip {
+  run-in-subshell ~/dev/infra/rocketship-cli bash -c '
+    GOOS=linux GOARCH=amd64 go build -C src/cmd -o ../../rcli && mv rcli "../../$1"
+  ' _ "$@"
+}
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/brent.mealhouse/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# bcli: PATH
+export PATH="/Users/brent.mealhouse/.local/bin:$PATH"
+# bcli homebrew shellenv
+eval "$(/opt/homebrew/bin/brew shellenv)"
